@@ -1,6 +1,5 @@
 import { ApiPromise } from "@polkadot/api";
 import { KeyringPair } from "@polkadot/keyring/types";
-import { Extrinsic } from "@polkadot/types/interfaces/types";
 import { AnyJson, ExtrinsicPayloadValue } from "@polkadot/types/types";
 import { objectSpread, u8aToHex } from "@polkadot/util";
 import { toHex } from "viem";
@@ -8,7 +7,7 @@ import { toHex } from "viem";
 export interface ExtrinsicPayload {
     api: ApiPromise,
     signer: string | KeyringPair,
-    extrinsic: Extrinsic
+    extrinsic: any // Fix any type -- mismatch in dependencies
 }
 
 /**
