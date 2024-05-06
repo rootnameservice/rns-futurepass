@@ -5,7 +5,6 @@ import { useAccount } from "wagmi";
 import { estimateGas, getFeeHistory } from "@wagmi/core";
 import { config } from "@/chains/config";
 import { Keyring } from "@polkadot/api";
-import { Extrinsic } from "@polkadot/types/interfaces/types";
 import { createExtrinsicPayload } from "@/utils/futurepass";
 
 import useConnectRoot from "./useConnectRoot";
