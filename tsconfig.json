@@ -1,13 +1,28 @@
 {
+  "$schema": "https://json.schemastore.org/tsconfig",
   "compilerOptions": {
-    "lib": ["dom", "dom.iterable", "esnext"],
+    "baseUrl": ".",
+    "paths": {
+      "@/*": [
+        // "./*"
+        "./app/*",
+        "./public/*"
+      ]
+    },
+    "target": "ES2017",
+    "lib": [
+      "DOM",
+      "DOM.Iterable",
+      "ESNext"
+    ],
     "allowJs": true,
     "skipLibCheck": true,
     "strict": true,
+    "forceConsistentCasingInFileNames": true,
     "noEmit": true,
     "esModuleInterop": true,
-    "module": "esnext",
-    "moduleResolution": "bundler",
+    "module": "ESNEXT",
+    "moduleResolution": "node",
     "resolveJsonModule": true,
     "isolatedModules": true,
     "jsx": "preserve",
@@ -16,11 +31,18 @@
       {
         "name": "next"
       }
-    ],
-    "paths": {
-      "@/*": ["./*"]
-    }
+    ]
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
-  "exclude": ["node_modules"]
+  "include": [
+    "next-env.d.ts",
+    "**/*.ts",
+    "**/*.tsx",
+    ".next/types/**/*.ts",
+    "src/services/utils.ts",
+    "**/*.pdf",
+    "**/*.graphql",
+  ],
+  "exclude": [
+    "node_modules"
+  ]
 }
