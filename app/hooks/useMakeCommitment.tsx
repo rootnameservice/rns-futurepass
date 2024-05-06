@@ -41,18 +41,18 @@ export default function useMakeCommitment() {
 
   const makeCommitment = async (props: RegisterProps) => {
     const { nameHash, args } = props;
-    const api = await getApiPromise("porcini");
 
-    // TODO: Check which dependency causes to make the unwrapOr function not available in Codec
-    let fpAccount = (await api.query.futurepass.holders(walletAddress || ""))
-      .unwrapOr(undefined)
-      ?.toString();
+    const api = await getApiPromise("porcini");
+    let fpAccount = args?.owner;
 
     if (!fpAccount && chainId === porcini.id) {
       fpAccount = EMPTY_ADDRESS;
     }
 
-    console.log("fpAccount:: ", fpAccount);
+    console.log(`
+    FP: ${fpAccount}
+    Wallet: ${walletAddress}
+    `);
 
     if (nameHash && args && fpAccount) {
       // Get transaction data using encodeFunctionData
@@ -61,7 +61,7 @@ export default function useMakeCommitment() {
         functionName: "makeCommitment",
         args: [
           args.name,
-          fpAccount,
+          args.owner,
           args.duration,
           args.secret,
           args.resolverAddr,
@@ -122,7 +122,6 @@ export default function useMakeCommitment() {
         method: "personal_sign",
         params: [message, walletAddress],
       });
-
       console.log("signature:: ", signature);
 
       // Add the signature to the extrinsic
@@ -131,11 +130,11 @@ export default function useMakeCommitment() {
         signature as `0x${string}`,
         payload
       );
+      console.log("---------------------");
 
       // TODO: Create a wrapper
       const result = await api.tx(signedExtrinsic).send();
       //   const result = await sendExtrinsic({ extrinsic, signer: alice });
-      console.log("---------------------");
     }
   };
 
